@@ -1,0 +1,16 @@
+﻿# Appended UI Properties for House Page control
+
+<Begin>
+	# Images ------------------------------------------------------------------------------------------------
+	<DefineImage "LanguageFlagBackground" assetID="0x00000B5B00000001"> # LotCategoryBackgroundImage
+	# Strings -----------------------------------------------------------------------------------------------
+	<Begin><SetSharedProperties stringDir = "UIText" stringTable = f127>
+		<DefineString "PreferredLanguageTooltip" stringIndex=1>
+	<End>
+	<Begin><SetSharedProperties stringDir = "UIText" stringTable = 190>
+		<DefineString "SimsOnlineTooltip" stringIndex=25>
+	<End>
+
+	# Controls ----------------------------------------------------------------------------------------------
+	<SetControlProperties "PreferredLanguageBackground" image="LanguageFlagBackground" position=(238,15) size=(33,33) tooltip="PreferredLanguageTooltip">
+<End>

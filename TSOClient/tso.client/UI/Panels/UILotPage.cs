@@ -29,6 +29,7 @@ namespace FSO.Client.UI.Panels
         private UIImage BackgroundHouseLeaderThumbImage;
         private UIImage BackgroundHouseCategoryThumbImage;
         private UIImage BackgroundNumOccupantsImage;
+        private UIImage BackgroundPreferredLanguagesImage;
 
         private UIImage BackgroundContractedImage;
         private UIImage BackgroundExpandedImage;
@@ -71,7 +72,8 @@ namespace FSO.Client.UI.Panels
         public Texture2D HouseCategory_NoCategoryButtonImage { get; set; }
         public Texture2D HouseCategory_CommunityButtonImage;
         public Texture2D RoommateThumbButtonImage { get; set; }
-        public Texture2D VisitorThumbButtonImage { get; set; }
+        public Texture2D VisitorThumbButtonImage { get; set; } 
+        private List<Rectangle> LotLanguageFlagSources { get; set; } // list of flags representing selected languages
 
         private UILotThumbButton LotThumbnail { get; set; }
         private UIRoommateList RoommateList { get; set; }
@@ -89,7 +91,7 @@ namespace FSO.Client.UI.Panels
 
         public UILotPage()
         {
-            var script = RenderScript("housepage.uis");
+            var script = RenderScript("housepage.uis");            
 
             BackgroundNumOccupantsImage = script.Create<UIImage>("BackgroundNumOccupantsImage");
             AddAt(0, BackgroundNumOccupantsImage);
@@ -160,6 +162,10 @@ namespace FSO.Client.UI.Panels
                 if (CurrentLot != null && CurrentLot.Value != null && CurrentLot.Value.Lot_NeighborhoodID != 0)
                     FindController<CoreGameScreenController>().ShowNeighPage(CurrentLot.Value.Lot_NeighborhoodID);
             };
+
+            var freesoHousePageScript = RenderScript("fsohousepage.uis");
+            BackgroundPreferredLanguagesImage = freesoHousePageScript.Create<UIImage>("PreferredLanguageBackground");
+            Add(BackgroundPreferredLanguagesImage);
 
             var ui = Content.Content.Get().CustomUI;
             HouseCategory_CommunityButtonImage = ui.Get("lotp_community_small.png").Get(GameFacade.GraphicsDevice);
@@ -250,6 +256,7 @@ namespace FSO.Client.UI.Panels
                     }
                 };
                 UIScreen.GlobalShowDialog(dialog, true);
+                
             }
         }
 
@@ -448,6 +455,8 @@ namespace FSO.Client.UI.Panels
 
             VisitorsLeftScrollButton.Visible = VisitorsRightScrollButton.Visible = isOpen;
 
+            BackgroundPreferredLanguagesImage.Visible = true;
+
             HouseCategoryButton.Disabled = !isMyProperty;
             if (isMyProperty) LotThumbnail.Mode = UILotRelationship.OWNER;
             else if (isRoommate) LotThumbnail.Mode = UILotRelationship.ROOMMATE;
@@ -460,14 +469,34 @@ namespace FSO.Client.UI.Panels
                 HouseLinkButton.Disabled = true;
                 LotThumbnail.Disabled = true;
             }
+
+            LotLanguageFlagSources = new List<Rectangle>() {
+                UILotLanguageDialog.GetEmojiRectByLang(Files.Formats.IFF.Chunks.STRLangCode.EnglishUS),
+                //UILotLanguageDialog.GetEmojiRectByLang(Files.Formats.IFF.Chunks.STRLangCode.German),
+                //UILotLanguageDialog.GetEmojiRectByLang(Files.Formats.IFF.Chunks.STRLangCode.French)
+            };
         }
         public override void Draw(UISpriteBatch batch)
         {
             if (!Visible) return;
             if (CurrentLot.Value != null)
-                UITerrainHighlight.DrawArrow(batch, ((CoreGameScreen)GameFacade.Screens.CurrentUIScreen).CityRenderer, 
-                    (Position + (_Open? Size : BackgroundContractedImage.Size.ToVector2()) / 2)* Common.FSOEnvironment.DPIScaleFactor, (int)CurrentLot.Value.Id);
+            {
+                
+                UITerrainHighlight.DrawArrow(batch, ((CoreGameScreen)GameFacade.Screens.CurrentUIScreen).CityRenderer,
+                    (Position + (_Open ? Size : BackgroundContractedImage.Size.ToVector2()) / 2) * Common.FSOEnvironment.DPIScaleFactor, (int)CurrentLot.Value.Id);
+                //lang emoji                
+            }
             base.Draw(batch);
+            if (Open)
+            {
+                var tex = GameFacade.Emojis.Cache.EmojiTex;
+                int i = 0;
+                foreach (var flag in LotLanguageFlagSources.Reverse<Rectangle>()) // have to get around draw order here so let's reverse the list and draw back -> front
+                {
+                    DrawLocalTexture(batch, tex, flag, new Vector2(265 + ((LotLanguageFlagSources.Count - 1 - i) * 10), 44)); // 240,17
+                    i++;
+                }
+            }
         }
     }
 

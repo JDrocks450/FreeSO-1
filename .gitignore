@@ -84,3 +84,4 @@ TSOClient/tso.client/GlobalSettings1.Designer.cs
 *.DS_Store
 TSOClient/.vs/config/applicationhost.config
 *.nvuser
+/TSOClient/tso.client/UI/Controls/UIMapWaypoint.cs

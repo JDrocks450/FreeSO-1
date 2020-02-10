@@ -564,6 +564,8 @@ namespace FSO.Client.UI.Framework.Parser
 
         private Dictionary<Type, Dictionary<string, UIAttField>> FieldCache
             = new Dictionary<Type, Dictionary<string, UIAttField>>();
+        private static Dictionary<Type, Dictionary<string, UIAttField>> AttCache
+            = new Dictionary<Type, Dictionary<string, UIAttField>>();
 
         /// <summary>
         /// Gets a map of string => UIAttField.
@@ -579,12 +581,11 @@ namespace FSO.Client.UI.Framework.Parser
                 return FieldCache[type];
             }
 
-
             PropertyInfo[] infos =
                 type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
             var idMap = new Dictionary<string, UIAttField>();
-
+            
             foreach (var field in infos)
             {
                 var atts = field.GetCustomAttributes(typeof(UIAttribute), true);
@@ -620,8 +621,7 @@ namespace FSO.Client.UI.Framework.Parser
                     else if (fieldType.IsAssignableFrom(typeof(string)))
                     {
                         convertType = UIAttributeType.String;
-                    }
-
+                    }                                        
                     foreach (UIAttribute att in atts)
                     {
                         idMap.Add(att.Name, new UIAttField
@@ -629,13 +629,30 @@ namespace FSO.Client.UI.Framework.Parser
                             Field = field,
                             Converter = att.DataType == UIAttributeType.Unknown ? convertType : att.DataType,
                             Parser = att.Parser
-                        });
-                    }
-
+                        });                      
+                    }                    
+                }
+            }            
+            FieldCache.Add(type, idMap);
+            if (AttCache.ContainsKey(type))
+            {
+                return idMap;
+            }
+            AttCache.Add(type, idMap);
+            var filestream = File.Open("D:/Games/fsoAttDump.txt", FileMode.Create, FileAccess.Write);
+            foreach (var field in AttCache)
+            {
+                var bytes = Encoding.ASCII.GetBytes($"{field.Key.FullName}\n");
+                filestream.Write(bytes, 0, bytes.Length);
+                foreach (var att in field.Value)
+                {
+                    bytes = Encoding.ASCII.GetBytes($"   {att.Key}: {Enum.GetName(typeof(UIAttributeType), att.Value.Converter)}\n");
+                    filestream.Write(bytes, 0, bytes.Length);
                 }
             }
-
-            FieldCache.Add(type, idMap);
+            var byt = Encoding.ASCII.GetBytes($"Wrote {AttCache.Count} Objects\n");
+            filestream.Write(byt, 0, byt.Length);
+            filestream.Dispose();
             return idMap;
         }
 

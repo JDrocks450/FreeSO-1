@@ -350,7 +350,11 @@ namespace FSO.Client
 
             if (_DebugVisible){
                 _DebugVisible = false;
-                GameFacade.Screens.AddDialog(_DebugDialog);
+                GameFacade.Screens.AddDialog(new UI.DialogReference()
+                {
+                    Dialog = new UILotLanguageDialog(),
+                    Modal = false,                    
+                });
             }else{
                 _DebugVisible = true;
                 GameFacade.Screens.RemoveDialog(_DebugDialog);
