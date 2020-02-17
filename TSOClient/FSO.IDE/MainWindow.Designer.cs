@@ -56,6 +56,7 @@
             this.saveGlobalscsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.avatarToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openExternalIffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fieldEncodingReverserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -80,7 +81,7 @@
             this.Browser = new FSO.IDE.ObjectBrowser();
             this.InspectorTab = new System.Windows.Forms.TabPage();
             this.entityInspector1 = new FSO.IDE.EntityInspector();
-            this.fieldEncodingReverserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fSOTaskGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.UtilityTabs.SuspendLayout();
             this.OverviewTab.SuspendLayout();
@@ -168,7 +169,8 @@
             this.simAnticsAOTToolStripMenuItem,
             this.avatarToolToolStripMenuItem,
             this.openExternalIffToolStripMenuItem,
-            this.fieldEncodingReverserToolStripMenuItem});
+            this.fieldEncodingReverserToolStripMenuItem,
+            this.fSOTaskGeneratorToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -209,6 +211,13 @@
             this.openExternalIffToolStripMenuItem.Text = "Open External Iff...";
             this.openExternalIffToolStripMenuItem.Click += new System.EventHandler(this.openExternalIffToolStripMenuItem_Click);
             // 
+            // fieldEncodingReverserToolStripMenuItem
+            // 
+            this.fieldEncodingReverserToolStripMenuItem.Name = "fieldEncodingReverserToolStripMenuItem";
+            this.fieldEncodingReverserToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.fieldEncodingReverserToolStripMenuItem.Text = "Field Encoding Reverser";
+            this.fieldEncodingReverserToolStripMenuItem.Click += new System.EventHandler(this.fieldEncodingReverserToolStripMenuItem_Click);
+            // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -222,14 +231,14 @@
             // hideAllToolStripMenuItem
             // 
             this.hideAllToolStripMenuItem.Name = "hideAllToolStripMenuItem";
-            this.hideAllToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.hideAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideAllToolStripMenuItem.Text = "Hide All";
             this.hideAllToolStripMenuItem.Click += new System.EventHandler(this.hideAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // helpToolStripMenuItem
             // 
@@ -486,12 +495,12 @@
             this.entityInspector1.Size = new System.Drawing.Size(724, 452);
             this.entityInspector1.TabIndex = 0;
             // 
-            // fieldEncodingReverserToolStripMenuItem
+            // fSOTaskGeneratorToolStripMenuItem
             // 
-            this.fieldEncodingReverserToolStripMenuItem.Name = "fieldEncodingReverserToolStripMenuItem";
-            this.fieldEncodingReverserToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.fieldEncodingReverserToolStripMenuItem.Text = "Field Encoding Reverser";
-            this.fieldEncodingReverserToolStripMenuItem.Click += new System.EventHandler(this.fieldEncodingReverserToolStripMenuItem_Click);
+            this.fSOTaskGeneratorToolStripMenuItem.Name = "fSOTaskGeneratorToolStripMenuItem";
+            this.fSOTaskGeneratorToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.fSOTaskGeneratorToolStripMenuItem.Text = "FSOTask Generator";
+            this.fSOTaskGeneratorToolStripMenuItem.Click += new System.EventHandler(this.fSOTaskGeneratorToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -560,5 +569,6 @@
         private System.Windows.Forms.ToolStripMenuItem avatarToolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openExternalIffToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fieldEncodingReverserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fSOTaskGeneratorToolStripMenuItem;
     }
 }

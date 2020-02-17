@@ -403,6 +403,12 @@ namespace FSO.IDE
             fe.Show();
             fe.StartWithOBJM();
         }
+
+        private void fSOTaskGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var generator = new TaskGenerator();
+            generator.Show();
+        }
     }
 
     public class ResChangeNode : TreeNode
